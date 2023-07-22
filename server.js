@@ -2,8 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
+const registerRoutes = require('./routes/register');
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 
@@ -12,6 +16,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
   .catch(err => console.log(err));
 
 app.use('/api/auth', authRoutes);
+app.use('/api/register', registerRoutes);
 
 const port = process.env.PORT || 5000;
 
