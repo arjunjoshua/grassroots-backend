@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const registerRoutes = require('./routes/register');
+const registerTeams = require('./routes/team');
 const cors = require('cors');
 
 const app = express();
@@ -17,6 +18,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 
 app.use('/api/auth', authRoutes);
 app.use('/api/register', registerRoutes);
+app.use('/api/team', registerTeams);
 
 const port = process.env.PORT || 5000;
 

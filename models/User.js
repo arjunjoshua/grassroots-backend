@@ -6,7 +6,7 @@ const User_Schema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-  },
+  },  
   email: {
     type: String,
     required: true,
@@ -16,6 +16,10 @@ const User_Schema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  team_id: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Team',
+  }]
 });
 
 // Hash the password before saving it to the database
