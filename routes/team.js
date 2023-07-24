@@ -5,22 +5,22 @@ const User = require('../models/User');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  const { team_name, age_group, proficiency_level, kit_color, coach_id } = req.body;
+  const { teamName, ageGroup, proficiencyLevel, kitColor, coachID } = req.body;
   
   // Create new team
   const team = new Team({
-    team_name,
-    age_group,
-    proficiency_level,
-    kit_color,
-    coach_id: coach_id
+    team_name: teamName,
+    age_group: ageGroup,
+    proficiency_level: proficiencyLevel,
+    kit_color: kitColor,
+    coach_id: coachID,
   });
 
   // Save the team
   const savedTeam = await team.save();
 
   // Update the coach's User document with the new team's ID
-  const coach = await User.findById(coach_id);
+  const coach = await User.findById(coachID);
   coach.team_id.push(savedTeam._id);
   await coach.save();
 
