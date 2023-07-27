@@ -5,6 +5,7 @@ const authRoutes = require('./routes/auth');
 const registerRoutes = require('./routes/register');
 const registerTeams = require('./routes/team');
 const matchPost = require('./routes/matchPost');
+const teamInfo = require('./routes/teamInfo');
 const cors = require('cors');
 
 const app = express();
@@ -21,6 +22,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/register', registerRoutes);
 app.use('/api/teams', registerTeams);
 app.use('/api/matchPost', matchPost);
+app.use('/api/teamsInfo', teamInfo);
 
 const port = process.env.PORT || 5000;
 
