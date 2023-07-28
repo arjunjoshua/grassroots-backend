@@ -3,9 +3,9 @@ const User = require('../models/User');
 const express = require('express');
 const router = express.Router();
 
-router.get('/teamsInfo', async (req, res) => {
-    const { userID } = req.params;
-    const Teams = await Team.find({ user_id: userID });
+router.get('/', async (req, res) => {
+    const { userID } = req.query;
+    const Teams = await Team.find({ coach_id: userID });
     res.json(Teams);
     });
 
