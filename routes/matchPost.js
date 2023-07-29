@@ -24,4 +24,17 @@ router.post('/', async (req, res) => {
     res.json({ status: 'success'});
 });
 
+router.get('/openMatches', async (req, res) => {
+    const { ageGroup } = req.query;
+
+    try {
+        const matchPosts = await MatchPost.find({ required_age_group: ageGroup, status: 'open' });
+        res.json({ status: 'success', matchPosts });
+    }
+    catch (err) {
+        console.error(err);
+        res.status(500).json({ status: 'error', message: 'Something went wrong' });
+    }
+});
+
 module.exports = router;
