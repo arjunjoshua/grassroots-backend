@@ -13,6 +13,7 @@ const MatchPostSchema = new mongoose.Schema({
   details: { type: String, required: false },
   interested_users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   interested_users_names: [{ type: String, required: false }],
+  coach_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
 });
 
 module.exports = mongoose.model('MatchPost', MatchPostSchema);
