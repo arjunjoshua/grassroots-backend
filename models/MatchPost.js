@@ -11,6 +11,8 @@ const MatchPostSchema = new mongoose.Schema({
   status: { type: String, enum: ['open', 'confirmed', 'completed', 'cancelled'], default: 'open' },
   // opponent_team_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },
   details: { type: String, required: false },
+  interested_users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+  interested_users_names: [{ type: String, required: false }],
 });
 
 module.exports = mongoose.model('MatchPost', MatchPostSchema);
