@@ -59,12 +59,13 @@ router.post('/interested', async (req, res) => {
             return res.json({ status: 'success' });
         }
 
-        if (!selectedMatch.interested_users) {
-            selectedMatch.interested_users = [];
-        }
-        if (!selectedMatch.interested_users_names) {
-            selectedMatch.interested_users_names = [];
-        }
+        // Commenting out this code because it's not needed anymore.
+        // if (!selectedMatch.interested_users) {
+        //     selectedMatch.interested_users = [];
+        // }
+        // if (!selectedMatch.interested_users_names) {
+        //     selectedMatch.interested_users_names = [];
+        // }
         
         selectedMatch.interested_users_names.push(interestedUser.username);
         selectedMatch.interested_users.push(userID);
