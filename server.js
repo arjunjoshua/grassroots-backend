@@ -6,6 +6,7 @@ const registerRoutes = require('./routes/register');
 const registerTeams = require('./routes/team');
 const matchPost = require('./routes/matchPost');
 const teamInfo = require('./routes/teamInfo');
+const notifications = require('./routes/notifications');
 const cors = require('cors');
 
 const app = express();
@@ -23,6 +24,7 @@ app.use('/api/register', registerRoutes);
 app.use('/api/teams', registerTeams);
 app.use('/api/matchPost', matchPost);
 app.use('/api/teamsInfo', teamInfo);
+app.use('/api/notifications', notifications);
 
 const port = process.env.PORT || 5000;
 

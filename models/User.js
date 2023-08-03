@@ -19,7 +19,13 @@ const User_Schema = new mongoose.Schema({
   team_id: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Team',
-  }]
+  }],
+  notifications: [{
+    message: String,
+    isRead: Boolean,
+    date: Date,
+    matchID: String,
+  }],
 });
 
 // Hash the password before saving it to the database

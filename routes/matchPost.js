@@ -66,9 +66,25 @@ router.post('/interested', async (req, res) => {
         // if (!selectedMatch.interested_users_names) {
         //     selectedMatch.interested_users_names = [];
         // }
-        
+
+       const postingUser = await User.findById(selectedMatch.coach_id);
+       if (!postingUser)
+            return res.status(400).json({ status: 'error', message: 'Posting user not found' });
+       if (!postingUser.notifications) {
+              postingUser.notifications = [];
+         }
+        postingUser.notifications.push({
+            message: `${interestedUser.username} is interested in your match post`,
+            isRead: false,
+            date: Date.now(),
+            matchID: selectedMatch._id,
+        });
+
+             
         selectedMatch.interested_users_names.push(interestedUser.username);
         selectedMatch.interested_users.push(userID);
+
+        await postingUser.save();
         await selectedMatch.save();
         
         return res.json({ status: 'success' });
