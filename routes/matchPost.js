@@ -25,10 +25,10 @@ router.post('/', async (req, res) => {
 });
 
 router.get('/openMatches', async (req, res) => {
-    const { ageGroup } = req.query;
+    const { ageGroup, userID } = req.query;
 
     try {
-        const matchPosts = await MatchPost.find({ required_age_group: ageGroup, status: 'open' });
+        const matchPosts = await MatchPost.find({ required_age_group: ageGroup, status: 'open', coach_id: { $ne: userID } });
         res.json({ status: 'success', matchPosts });
     }
     catch (err) {
