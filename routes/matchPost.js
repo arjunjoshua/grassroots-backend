@@ -1,7 +1,7 @@
 const express = require('express');
 const MatchPost = require('../models/MatchPost');
 const User = require('../models/User');
-
+const Team = require('../models/Team');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
@@ -38,7 +38,7 @@ router.get('/openMatches', async (req, res) => {
 });
 
 router.post('/interested', async (req, res) => {
-    const {userID, matchID, isInterested} = req.body;
+    const {userID, matchID, isInterested, teamID} = req.body;
 
     try {
         const selectedMatch = await MatchPost.findById(matchID);
@@ -49,6 +49,11 @@ router.post('/interested', async (req, res) => {
         if (!interestedUser)
             return res.status(400).json({ status: 'error', message: 'User not found' });
 
+        
+        const interestedTeam = await Team.findById(teamID);
+        if (!interestedTeam)
+            return res.status(400).json({ status: 'error', message: 'Team not found' });
+           
         if (!isInterested) {   
             const index = selectedMatch.interested_users.indexOf(userID);
             if (index > -1) {
@@ -68,8 +73,9 @@ router.post('/interested', async (req, res) => {
         // }
 
        const postingUser = await User.findById(selectedMatch.coach_id);
-       if (!postingUser)
+       if (!postingUser) 
             return res.status(400).json({ status: 'error', message: 'Posting user not found' });
+            
        if (!postingUser.notifications) {
               postingUser.notifications = [];
          }
@@ -78,6 +84,7 @@ router.post('/interested', async (req, res) => {
             isRead: false,
             date: Date.now(),
             matchID: selectedMatch._id,
+            interested_team_name: interestedTeam.team_name,
         });
 
              

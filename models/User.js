@@ -25,6 +25,7 @@ const User_Schema = new mongoose.Schema({
     isRead: Boolean,
     date: Date,
     matchID: String,
+    interested_team_name: String,
   }],
 });
 
