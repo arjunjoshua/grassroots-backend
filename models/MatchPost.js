@@ -9,7 +9,7 @@ const MatchPostSchema = new mongoose.Schema({
   required_age_group: { type: String, required: true },
   required_proficiency_level: { type: String, required: true },
   status: { type: String, enum: ['open', 'confirmed', 'completed', 'cancelled'], default: 'open' },
-  // opponent_team_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },
+  opponent_team_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },
   details: { type: String, required: false },
   interested_users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   interested_users_names: [{ type: String, required: false }],
