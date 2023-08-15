@@ -16,6 +16,10 @@ const User_Schema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  phoneNumber: {
+    type: String,
+    required: true,
+  },
   team_id: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Team',
@@ -27,10 +31,10 @@ const User_Schema = new mongoose.Schema({
     date: Date,
     matchID: String,
     interested_team_name: String,
-    sendingUser: [{ 
+    sendingUser: { 
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-    }],
+    },
   }],
 });
 

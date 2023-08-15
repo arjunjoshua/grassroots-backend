@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  const { username, password, email } = req.body;
+  const { username, password, email, phoneNumber } = req.body;
   
   // Check if user already exists
   let user = await User.findOne({ $or: [{ username }, { email }] });
@@ -19,6 +19,7 @@ router.post('/', async (req, res) => {
     username,
     password,
     email,
+    phoneNumber,
   });
   
   // Save the user and return response

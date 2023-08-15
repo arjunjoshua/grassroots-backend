@@ -1,8 +1,11 @@
+require('dotenv').config();
 const User = require('../models/User');
 const router = require('express').Router();
 const express = require('express');
 const MatchPost = require('../models/MatchPost');
 const Team = require('../models/Team');
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 router.get('/', async (req, res) => {
     const { userID } = req.query;
@@ -74,11 +77,24 @@ router.put('/accept', async (req, res) => {
        }
       opponentCoach.notifications.push({
           category: 'accepted',
-          message: `Your match has been confirmed by ${user.username}. Your contact numbers will be emailed to each other.`,
+          message: `Your match has been confirmed by ${user.username}. You will receive an email with the contact details of your opponent.`,
           isRead: false,
           date: Date.now(),
           matchID: match._id,
       });
+
+      try {
+        await sendEmail(user.email, opponentCoach.phoneNumber, user.username);
+    } catch (error) {
+        console.log(error);
+    }
+
+    try {
+        await sendEmail(opponentCoach.email, user.phoneNumber, opponentCoach.username);
+    }
+    catch (error) {
+        console.log(error);
+    }
 
     await match.save();
     await user.save();
@@ -87,6 +103,20 @@ router.put('/accept', async (req, res) => {
     const unreadNotifications = user.notifications.filter(notification => !notification.isRead);
     res.json(unreadNotifications);
 });
+
+async function sendEmail(recipient, phoneNumber, username)
+{
+        const msg = {
+        to: recipient,
+        from: process.env.EMAIL_ID,
+        subject: 'Contact Details for your upcoming match',
+        text: `Hello ${username}, 
+         
+        ${phoneNumber} is your opponent's contact number. Good luck!`,
+    };
+
+    return sgMail.send(msg);
+}
 
 
 module.exports = router;
