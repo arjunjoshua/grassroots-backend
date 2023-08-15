@@ -21,11 +21,16 @@ const User_Schema = new mongoose.Schema({
     ref: 'Team',
   }],
   notifications: [{
+    category: String,
     message: String,
     isRead: Boolean,
     date: Date,
     matchID: String,
     interested_team_name: String,
+    sendingUser: [{ 
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    }],
   }],
 });
 
