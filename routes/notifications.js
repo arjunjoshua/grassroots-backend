@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
     res.json(unreadNotifications);
 });
 
-router.put('/', async (req, res) => {
+router.put('/markRead', async (req, res) => {
     const { userID, notificationID } = req.body;
     const user = await User.findById(userID);
     if (!user)
