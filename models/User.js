@@ -25,7 +25,7 @@ const User_Schema = new mongoose.Schema({
     ref: 'Team',
   }],
   notifications: [{
-    category: String,
+    category: {type: String, enum: ['request', 'accepted'], default: 'request'},
     message: String,
     isRead: Boolean,
     date: Date,
