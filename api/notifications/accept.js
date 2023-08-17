@@ -1,7 +1,10 @@
+require('dotenv').config();
 const connectDB = require('../../database/db');
 const MatchPost = require('../../database/models/MatchPost');
 const User = require('../../database/models/User');
 const sendEmail = require('../../utils/sendEmail');
+const sgMail = require('@sendgrid/mail');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = async (req, res) => {
     await connectDB();
@@ -59,4 +62,18 @@ module.exports = async (req, res) => {
 
     const unreadNotifications = user.notifications.filter(notification => !notification.isRead);
     res.json(unreadNotifications);
+}
+
+async function sendEmail(recipient, phoneNumber, username)
+{
+        const msg = {
+        to: recipient,
+        from: process.env.EMAIL_ID,
+        subject: 'Contact Details for your upcoming match',
+        text: `Hello ${username}, 
+         
+        ${phoneNumber} is your opponent's contact number. Good luck!`,
+    };
+
+    return sgMail.send(msg);
 }
