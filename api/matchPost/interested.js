@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
     const {userID, matchID, isInterested, teamID} = req.body;
 
     try {
-        const selectedMatch = await MatchPost.findById(matchID);
+        const selectedMatch = await MatchPost.findById(matchID).populate('coach_id');
         if (!selectedMatch) {
             return res.status(400).json({ status: 'error', message: 'Match not found' });
         }
@@ -24,12 +24,6 @@ module.exports = async (req, res) => {
         if (!interestedTeam) {
             return res.status(400).json({ status: 'error', message: 'Team not found' });
         }
-
-        if (!selectedMatch.interested_users) {
-            selectedMatch.interested_users = [];
-        }
-        if (!selectedMatch.interested_users_names) {
-            selectedMatch.interested_users_names = [];
            
         if (!isInterested) {   
             const index = selectedMatch.interested_users.indexOf(userID);
@@ -41,7 +35,7 @@ module.exports = async (req, res) => {
             return res.json({ status: 'success' });
         }
 
-       const postingUser = await User.findById(selectedMatch.coach_id);
+       const postingUser = selectedMatch.coach_id;
        if (!postingUser) {
             return res.status(400).json({ status: 'error', message: 'Posting user not found' });
        }
@@ -67,7 +61,7 @@ module.exports = async (req, res) => {
         
         return res.json({ status: 'success' });
     } 
-}catch (error) {
+catch (error) {
         return res.status(500).json({ status: 'error', message: 'Server error' });
     }
 }
