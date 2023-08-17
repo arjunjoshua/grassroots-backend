@@ -1,7 +1,7 @@
 const connectDB = require('../../database/db');
 const MatchPost = require('../../database/models/MatchPost');
-const User = require('../../database/User');
-const Team = require('../../database/Team');
+const User = require('../../database/models/User');
+const Team = require('../../database/models/Team');
 
 module.exports = async (req, res) => {
     await connectDB();
@@ -24,6 +24,12 @@ module.exports = async (req, res) => {
         if (!interestedTeam) {
             return res.status(400).json({ status: 'error', message: 'Team not found' });
         }
+
+        // if (!selectedMatch.interested_users) {
+        //     selectedMatch.interested_users = [];
+        // }
+        // if (!selectedMatch.interested_users_names) {
+        //     selectedMatch.interested_users_names = [];
            
         if (!isInterested) {   
             const index = selectedMatch.interested_users.indexOf(userID);
