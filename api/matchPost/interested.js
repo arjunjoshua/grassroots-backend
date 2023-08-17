@@ -25,11 +25,11 @@ module.exports = async (req, res) => {
             return res.status(400).json({ status: 'error', message: 'Team not found' });
         }
 
-        // if (!selectedMatch.interested_users) {
-        //     selectedMatch.interested_users = [];
-        // }
-        // if (!selectedMatch.interested_users_names) {
-        //     selectedMatch.interested_users_names = [];
+        if (!selectedMatch.interested_users) {
+            selectedMatch.interested_users = [];
+        }
+        if (!selectedMatch.interested_users_names) {
+            selectedMatch.interested_users_names = [];
            
         if (!isInterested) {   
             const index = selectedMatch.interested_users.indexOf(userID);
