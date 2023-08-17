@@ -53,7 +53,11 @@ module.exports = async (req, res) => {
         await sendEmail(opponentCoach.email, user.phoneNumber, opponentCoach.username);
     }
     catch (error) {
-        console.log(error);
+        if (error.response && error.response.body && error.response.body.errors) {
+            console.error('SendGrid error details:', error.response.body.errors);
+        } else {
+            console.error(error);
+        }
     }
 
     await match.save();
@@ -70,9 +74,7 @@ async function sendEmail(recipient, phoneNumber, username)
         to: recipient,
         from: process.env.EMAIL_ID,
         subject: 'Contact Details for your upcoming match',
-        text: `Hello ${username}, 
-         
-        ${phoneNumber} is your opponent's contact number. Good luck!`,
+        text: `${phoneNumber} is your opponent's contact number. Good luck!`,
     };
 
     return sgMail.send(msg);
