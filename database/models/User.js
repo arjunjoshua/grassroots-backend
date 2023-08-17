@@ -33,7 +33,7 @@ const User_Schema = new mongoose.Schema({
     interested_team_name: String,
     sendingUser: { 
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'User'
     },
   }],
 });
