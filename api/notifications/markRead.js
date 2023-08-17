@@ -1,5 +1,5 @@
 const connectDB = require('../../database/db');
-const User = require('../../database/User');
+const User = require('../../database/models/User');
 
 module.exports = async (req, res) => {
     await connectDB();

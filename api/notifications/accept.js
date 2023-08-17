@@ -1,6 +1,6 @@
 const connectDB = require('../../database/db');
 const MatchPost = require('../../database/models/MatchPost');
-const User = require('../../database/User');
+const User = require('../../database/models/User');
 const sendEmail = require('../../utils/sendEmail');
 
 module.exports = async (req, res) => {
