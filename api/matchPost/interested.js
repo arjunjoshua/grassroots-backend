@@ -7,7 +7,6 @@ module.exports = async (req, res) => {
     await connectDB();
 
     const {userID, matchID, isInterested, teamID} = req.body;
-    console.log(req.body)
 
     const selectedMatch = await MatchPost.findById(matchID);
     if (!selectedMatch) {
@@ -40,12 +39,10 @@ module.exports = async (req, res) => {
         return res.status(400).json({ status: 'error', message: 'Posting user not found' });
     }
         
-    // if (!postingUser.notifications) {
-    //         postingUser.notifications = [];
-    //     }
-    console.log("UserID:", userID);
-    console.log("InterestedUser:", interestedUser);
-    console.log("PostingUser:", postingUser);
+    if (!postingUser.notifications) {
+             postingUser.notifications = [];
+         }
+
     postingUser.notifications.push({
         category: 'request',
         message: `${interestedUser.username} is interested in your match post`,
