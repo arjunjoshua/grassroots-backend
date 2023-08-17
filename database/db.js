@@ -11,7 +11,6 @@ await mongoose.connect(connectionURL,{
     useNewUrlParser:true,
     useUnifiedTopology:true,
 });
-console.log('Database connected successfully');
 };
 
 module.exports=connectDB;
