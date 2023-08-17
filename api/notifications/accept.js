@@ -2,7 +2,7 @@ require('dotenv').config();
 const connectDB = require('../../database/db');
 const MatchPost = require('../../database/models/MatchPost');
 const User = require('../../database/models/User');
-const sendEmail = require('../../utils/sendEmail');
+// const sendEmail = require('../../utils/sendEmail');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
