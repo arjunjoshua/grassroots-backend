@@ -66,7 +66,8 @@ module.exports = async (req, res) => {
         await selectedMatch.save();
         
         return res.json({ status: 'success' });
-    } catch (error) {
+    } 
+}catch (error) {
         return res.status(500).json({ status: 'error', message: 'Server error' });
     }
 }
