@@ -40,9 +40,9 @@ module.exports = async (req, res) => {
         return res.status(400).json({ status: 'error', message: 'Posting user not found' });
     }
         
-    if (!postingUser.notifications) {
-            postingUser.notifications = [];
-        }
+    // if (!postingUser.notifications) {
+    //         postingUser.notifications = [];
+    //     }
     console.log("UserID:", userID);
     console.log("InterestedUser:", interestedUser);
     console.log("PostingUser:", postingUser);
@@ -52,8 +52,8 @@ module.exports = async (req, res) => {
         isRead: false,
         date: Date.now(),
         matchID: selectedMatch._id,
-        interested_team_name: interestedTeam.team_name,
         sendingUser: userID,
+        interested_team_name: interestedTeam.team_name,
     });
             
     selectedMatch.interested_users_names.push(interestedUser.username);
