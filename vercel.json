@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "builds": [
+      { "src": "api/**/*.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+      { "src": "/api/login", "dest": "/api/login.js" },
+      { "src": "/api/register", "dest": "/api/register.js" },
+      { "src": "/api/teams/teamInfo", "dest": "/api/teams/teamInfo.js" },
+      { "src": "/api/teams/createTeam", "dest": "/api/teams/createTeam.js"},
+      { "src": "/api/matchPost/createPost", "dest": "/api/matchPost/createPost.js" },
+      { "src": "/api/matchPost/interested", "dest": "/api/matchPost/interested.js" },
+      { "src": "/api/matchPost/openMatches", "dest": "/api/matchPost/openMatches.js" },
+      { "src": "/api/notifications/getNotifs", "dest": "/api/notifications/getNotifs.js" },
+      { "src": "/api/notifications/accept", "dest": "/api/notifications/accept.js" },
+      { "src": "/api/notifications/markRead", "dest": "/api/notifications/markRead.js" }
+    ]
+  }

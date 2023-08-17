@@ -1,5 +1,5 @@
-const Team = require('../models/Team');
-const User = require('../models/User');
+const Team = require('../database/Team');
+const User = require('../database/User');
 const express = require('express');
 const router = express.Router();
 

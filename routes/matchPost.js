@@ -1,7 +1,7 @@
 const express = require('express');
-const MatchPost = require('../models/MatchPost');
-const User = require('../models/User');
-const Team = require('../models/Team');
+const MatchPost = require('../database/models/MatchPost');
+const User = require('../database/User');
+const Team = require('../database/Team');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
