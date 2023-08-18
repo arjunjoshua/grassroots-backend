@@ -2,9 +2,7 @@ require('dotenv').config();
 const connectDB = require('../../database/db');
 const MatchPost = require('../../database/models/MatchPost');
 const User = require('../../database/models/User');
-// const sendEmail = require('../../utils/sendEmail');
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const sendEmail = require('../../utils/sendEmail');
 
 module.exports = async (req, res) => {
     await connectDB();
@@ -37,7 +35,7 @@ module.exports = async (req, res) => {
        }
       opponentCoach.notifications.push({
           category: 'accepted',
-          message: `Your match has been confirmed by ${user.username}. You will receive an email with the contact details of your opponent.`,
+          message: `Your match has been confirmed by ${user.username}. You will receive an email with the contact details of your opponent. Make sure to check your spam folder!`,
           isRead: false,
           date: Date.now(),
           matchID: match._id,
@@ -50,7 +48,7 @@ module.exports = async (req, res) => {
     }
 
     try {
-        await sendEmail(opponentCoach.email, user.phoneNumber, opponentCoach.username);
+        await sendEmail(opponentCoach.email, user.phoneNumber, opponentCoach.username, match.details);
     }
     catch (error) {
         if (error.response && error.response.body && error.response.body.errors) {
@@ -66,16 +64,4 @@ module.exports = async (req, res) => {
 
     const unreadNotifications = user.notifications.filter(notification => !notification.isRead);
     res.json(unreadNotifications);
-}
-
-async function sendEmail(recipient, phoneNumber, username)
-{
-        const msg = {
-        to: recipient,
-        from: process.env.EMAIL_ID,
-        subject: 'Contact Details for your upcoming match',
-        text: `${phoneNumber} is your opponent's contact number. Good luck!`,
-    };
-
-    return sgMail.send(msg);
 }
