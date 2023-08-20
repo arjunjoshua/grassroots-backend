@@ -6,17 +6,19 @@ const connectDB = require('../database/db');
 module.exports = async (req, res) => {
     await connectDB();
     const { email, password } = req.body;
-    
+
+    //validate email
     const user = await User.findOne({ email });
     if (!user) {
         return res.status(400).json({ message: 'Invalid email or password' });
         }
 
+    //validate password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
         return res.status(400).json({ message: 'Invalid email or password' });
         }
-
+    //generate login token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
     const { username } = user;
 
