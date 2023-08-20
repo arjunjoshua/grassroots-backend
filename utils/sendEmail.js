@@ -8,7 +8,8 @@ async function sendEmail(recipient, phoneNumber, username, details)
         if (details) {
             mailBody = `Hello ${username},
 
-            ${phoneNumber} is your opponent's contact number. The host has also provided additional details as follows:
+            ${phoneNumber} is your opponent's contact number. 
+            The host has also provided additional details as follows:
 
             ${details}
 
@@ -21,7 +22,10 @@ async function sendEmail(recipient, phoneNumber, username, details)
 
         const msg = {
         to: recipient,
-        from: { email: "grassrootsnotifications@gmail.com", name: 'Grassroots Notifications' },
+        from: { 
+            email: "grassrootsnotifications@gmail.com", 
+            name: 'Grassroots Notifications' 
+        },
         subject: 'Contact Details for your upcoming match',
         text: mailBody,
     };
